@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buji 💖 Yogeswaran</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .card {
+      width: 350px;
+      padding: 25px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    h1 {
+      color: #e63946;
+      font-size: 20px;
+    }
+
+    .from {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    #yes {
+      background: #e63946;
+      color: white;
+    }
+
+    #no {
+      background: #ccc;
+      position: fixed; /* start outside card */
+      left: 60%;
+      top: 60%;
+      z-index: 9999;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 14px;
+      margin-top: 15px;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+  <h1>💖 Buji, will you be my Valentine? 💖</h1>
+  <div class="from">— from Yogeswaran ❤️</div>
+  <p>Try clicking NO if you can 😜</p>
+  <div class="buttons">
+    <button id="yes" onclick="yes()">YES 💕</button>
+  </div>
+</div>
+
+<!-- NO button outside the card -->
+<button id="no" onmouseenter="run()">NO 🙈</button>
+
+<script>
+  // NO button moves randomly but stays inside viewport
+  function run() {
+    const no = document.getElementById("no");
+    const padding = 10;
+
+    const maxX = window.innerWidth - no.offsetWidth - padding;
+    const maxY = window.innerHeight - no.offsetHeight - padding;
+
+    const randomX = Math.max(padding, Math.random() * maxX);
+    const randomY = Math.max(padding, Math.random() * maxY);
+
+    no.style.left = randomX + "px";
+    no.style.top = randomY + "px";
+  }
+
+  // YES button clicked
+  function yes() {
+    document.getElementById("bgMusic").play();
+
+    document.getElementById("card").innerHTML = `
+      <h1>YAY BUJI!!! 💕😍</h1>
+      <p>You just made Yogeswaran the happiest ❤️</p>
+      <p>Happy Valentine’s Day 💖</p>
+      <video controls autoplay>
+        <source src="video.mp4" type="video/mp4">
+      </video>
+    `;
+
+    document.getElementById("no").style.display = "none";
+
+    setInterval(createHeart, 300);
+  }
+
+  // Floating hearts
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+</script>
+
+</body>
+</html>
+
+
+
